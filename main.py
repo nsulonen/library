@@ -54,13 +54,33 @@ class Library:
         return f"\nLibrary books={self.books}\n\nLibrary members={self.members}"
 
     def add_book(self, title: str, author: str, isbn: str) -> None:
-        pass
+        for book in self.books:
+            if book.isbn == isbn:
+                print("Book already exists!")
+                return
+        new_book: Book = Book(title, author, isbn)
+        self.books.append(new_book)
 
-    def remove_book(self):
-        pass
+    def remove_book(self, isbn: str) -> None:
+        for book in self.books:
+            if book.isbn == isbn:
+                if book.is_available:
+                    self.books.remove(book)
+                    print(f"Removed book {book.title}")
+                else:
+                    print(f"Cannot remove {book.title}: currently borrowed")
+                return
+        print(f"Book with ISBN ({isbn}) not found")
 
-    def search_book(self):
-        pass
+
+    def search_book(self, query: str) -> list[Book]:
+        results = []
+        for book in self.books:
+            if (query.lower() in book.title.lower() or
+                query.lower() in book.author.lower() or
+                query == book.isbn):
+                results.append(book)
+        return results
 
     def register_member(self, name: str, member_id: str) -> None:
         self.members.append(Member(name, member_id))
@@ -77,5 +97,12 @@ def main() -> None:
     print(library)
     member.return_book(book)
     print(library)
+
+    print(library.search_book("123B"))
+    library.register_member("Nate", "M2")
+    print(library)
+    library.add_book("OOP", "John", "123C")
+    print(library)
+    library.remove_book("123C")
 if __name__ == "__main__":
     main()
