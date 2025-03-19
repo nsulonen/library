@@ -14,7 +14,7 @@ class Book:
         return f"\nBook: {self.title}, {self.author}, {self.isbn}, is.available = {self.is_available}"
 
     def __getitem__(self, item):
-        item = self.isbn
+        pass
 
     def check_out(self) -> None:
         self.is_available = False
@@ -54,9 +54,7 @@ class Library:
         return f"\nLibrary books={self.books}\n\nLibrary members={self.members}"
 
     def add_book(self, title: str, author: str, isbn: str) -> None:
-        for book in self.books:
-            if Book
-            self.books.append(Book(title, author, isbn))
+        pass
 
     def remove_book(self):
         pass
@@ -79,7 +77,5 @@ def main() -> None:
     print(library)
     member.return_book(book)
     print(library)
-    print(Book[item])
-
 if __name__ == "__main__":
     main()
